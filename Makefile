@@ -32,6 +32,10 @@ dist-backend-windows: extension = .exe
 dist-backend-%:
 	$(eval filename = strava-plugin_$*_amd64$(extension))
 	env GOOS=$* GO111MODULE=on GOARCH=amd64 go build -ldflags="-s -w" -mod=vendor -o ./dist/$(filename) ./pkg
+	$(eval filename = strava-plugin_$*_arm$(extension))
+	env GOOS=$* GO111MODULE=on GOARM=6 GOARCH=arm go build -ldflags="-s -w" -mod=vendor -o ./dist/$(filename) ./pkg
+	$(eval filename = strava-plugin_$*_arm64$(extension))
+	env GOOS=$* GO111MODULE=on GOARCH=arm64 go build -ldflags="-s -w" -mod=vendor -o ./dist/$(filename) ./pkg
 
 start-frontend:
 	yarn start
